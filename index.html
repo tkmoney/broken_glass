@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glass video</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<!-- Paste this file into CodePen's HTML panel. -->
+<script>
+  document.documentElement.dataset.theme = "dark";
+</script>
+
+<svg class="filter-definitions" width="0" height="0" aria-hidden="true">
+  <defs>
+    <filter id="video-glass-warp"
+            filterUnits="userSpaceOnUse"
+            primitiveUnits="userSpaceOnUse"
+            x="0" y="0" width="1280" height="720"
+            color-interpolation-filters="sRGB">
+      <feImage id="displacement-image"
+               x="0" y="0" width="1280" height="720"
+               preserveAspectRatio="none" result="map" />
+      <feDisplacementMap id="displacement"
+                         in="SourceGraphic" in2="map"
+                         scale="35"
+                         xChannelSelector="R"
+                         yChannelSelector="G" />
+    </filter>
+  </defs>
+</svg>
+
+<main class="video-stage" id="video-stage" aria-label="Video through broken glass">
+  <video id="video" preload="auto" playsinline loop aria-label="Looping TV video"></video>
+  <img id="glass" class="glass" alt="" aria-hidden="true">
+</main>
+
+<!-- These siblings never receive the video filter. -->
+<button id="play" class="play" type="button" disabled aria-label="Play video">
+  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+    <path d="M8 5v14l11-7z" />
+  </svg>
+  <span>Play</span>
+</button>
+<aside id="pane" aria-label="Video and glass controls"></aside>
+<p id="error" class="error" role="alert" hidden></p>
+<span id="status" class="sr-only" role="status" aria-live="polite">Loading video and glass textures.</span>
+
+<script>window.GLASS_VIDEO_CONFIG = { paneModule: "./vendor/tweakpane.min.js" };</script>
+<script src="./script.js"></script>
+</body>
+</html>
